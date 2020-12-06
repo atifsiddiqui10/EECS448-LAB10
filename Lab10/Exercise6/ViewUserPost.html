@@ -1,0 +1,31 @@
+<html>
+    <head>
+        <title> Exercise 6 </title>
+    </head>
+    <body>
+        <form action="ViewUserPost.php" method="post">
+            <label for="user">User:</label>
+            <select name="user" id="user">
+            <?php
+                $mysqli = new mysqli("mysql.eecs.ku.edu", "mohammsiddiqui", "paiN7aen", "mohammsiddiqui");
+                /* checking connection */
+
+                if ($mysqli->connect_error){
+                    printf('Connection failed %s\n', $mysqli->connect_error);
+                    exit();
+                }
+                $query = "SELECT * from Users";
+
+                if($result = $mysqli->query($query)){
+                  while ($row = $result->fetch_assoc()){
+                      echo "<option value ='" . $row["user_id"] . "'>" . $row["user_id"] . "</option>";
+                  }
+                  $result -> free();
+                }
+                $mysqli->close();
+            ?>
+            </select>
+            <input type="submit", value="Confirm">
+        </form>
+    </body>
+</html>
